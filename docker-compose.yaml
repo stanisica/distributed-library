@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql_container
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: central_db
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
