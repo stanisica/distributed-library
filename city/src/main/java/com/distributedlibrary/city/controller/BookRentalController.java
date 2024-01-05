@@ -21,12 +21,15 @@ public class BookRentalController {
     public ResponseEntity<String> register(@RequestBody RegisterDTO dto){
         final var response = service.register(dto);
         return  response ?
-                ResponseEntity.status(HttpStatus.OK).body("User added!"):
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists!");
+                ResponseEntity.status(HttpStatus.OK).body("Account successfully created!"):
+                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Account creation canceled.");
     }
 
-//    @PostMapping("/create")
-//    public ResponseEntity<?> create(@RequestBody RentalDTO dto){
-//
-//    }
+    @PostMapping("/rent")
+    public ResponseEntity<?> rent(@RequestBody RentalDTO dto){
+        final var response = service.rent(dto);
+        return  response ?
+                ResponseEntity.status(HttpStatus.OK).body("Book successfully rented!"):
+                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Book rental canceled.");
+    }
 }

@@ -17,21 +17,35 @@ import org.springframework.web.client.RestTemplate;
 public class BookRentalService {
     private final BookRentalRepository repository;
     private final BookRentalMapper mapper;
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final String baseUrl = "http://localhost:8080/central";
 
     public boolean register(RegisterDTO dto){
         try{
-            RestTemplate restTemplate = new RestTemplate();
-            final var url = "http://localhost:8080/central/register";
             var headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            ResponseEntity<String> response = restTemplate.postForEntity(url, new HttpEntity<>(dto, headers), String.class);
+            ResponseEntity<String> response = restTemplate
+                    .postForEntity(baseUrl+"/register", new HttpEntity<>(dto, headers), String.class);
             return true;
         }catch (Exception e){
             return false;
         }
     }
 
-    public boolean create(RentalDTO dto){
+    public boolean rent(RentalDTO dto){
+        try{
+            var headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            ResponseEntity<Boolean> elgible = restTemplate
+                    .postForEntity(String.format(baseUrl+"/rent/%s", dto.getUserId()), new HttpEntity<>("", headers), Boolean.class);
+            return executeRent(elgible.getBody(), dto);
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    private boolean executeRent(boolean elgible, RentalDTO dto){
+        if (!elgible) return false;
         var newRental = mapper.DtoToEntity(dto);
         repository.save(newRental);
         return true;
