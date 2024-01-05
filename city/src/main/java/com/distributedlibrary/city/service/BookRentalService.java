@@ -17,12 +17,12 @@ import org.springframework.web.client.RestTemplate;
 public class BookRentalService {
     private final BookRentalRepository repository;
     private final BookRentalMapper mapper;
-    private final RestTemplate restTemplate;
 
     public boolean register(RegisterDTO dto){
         try{
-            String url = "http://localhost:9000/central/register";
-            HttpHeaders headers = new HttpHeaders();
+            RestTemplate restTemplate = new RestTemplate();
+            final var url = "http://localhost:8080/central/register";
+            var headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             ResponseEntity<String> response = restTemplate.postForEntity(url, new HttpEntity<>(dto, headers), String.class);
             return true;

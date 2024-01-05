@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface BookRentalRepository extends JpaRepository<BookRental, UUID> {
-    @Query("SELECT r.id FROM rentals r WHERE r.isbn = ?1")
-    UUID findByISBN(String isbn);
+//    @Query("SELECT r.id FROM rentals r WHERE r.isbn = ?1")
+//    UUID findByISBN(String isbn);
 }
