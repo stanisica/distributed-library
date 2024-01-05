@@ -1,12 +1,14 @@
 package com.distributedlibrary.central.controller;
 
 import com.distributedlibrary.central.dto.RegisterDTO;
+import com.distributedlibrary.central.model.User;
 import com.distributedlibrary.central.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -37,5 +39,10 @@ public class UserController {
         return  response ?
                 ResponseEntity.status(HttpStatus.OK).body(response):
                 ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> findAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
     }
 }

@@ -2,10 +2,12 @@ package com.distributedlibrary.central.service;
 
 import com.distributedlibrary.central.dto.RegisterDTO;
 import com.distributedlibrary.central.mapper.UserMapper;
+import com.distributedlibrary.central.model.User;
 import com.distributedlibrary.central.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -37,5 +39,9 @@ public class UserService {
         var response  = user.returnBook();
         userRepository.save(user);
         return response;
+    }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
     }
 }
