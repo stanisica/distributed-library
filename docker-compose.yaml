@@ -15,5 +15,18 @@ services:
       - mysql_data:/var/lib/mysql
     restart: unless-stopped
 
+  postgres_db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: city_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
 volumes:
   mysql_data:
+  postgres_data:
