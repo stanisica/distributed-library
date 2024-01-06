@@ -32,7 +32,7 @@ public class BookRental {
     @Column(nullable = false, unique = true)
     String isbn;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     UUID userId;
 
     @Column(nullable = false)

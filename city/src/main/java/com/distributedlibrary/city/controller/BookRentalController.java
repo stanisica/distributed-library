@@ -2,6 +2,7 @@ package com.distributedlibrary.city.controller;
 
 import com.distributedlibrary.city.dto.RegisterDTO;
 import com.distributedlibrary.city.dto.RentalDTO;
+import com.distributedlibrary.city.dto.ReturnDTO;
 import com.distributedlibrary.city.service.BookRentalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,10 +27,18 @@ public class BookRentalController {
     }
 
     @PostMapping("/rent")
-    public ResponseEntity<?> rent(@RequestBody RentalDTO dto){
-        final var response = service.rent(dto);
+    public ResponseEntity<?> rentBook(@RequestBody RentalDTO dto){
+        final var response = service.rentBook(dto);
         return  response ?
                 ResponseEntity.status(HttpStatus.OK).body("Book successfully rented!"):
                 ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Book rental canceled.");
+    }
+
+    @PostMapping("/return")
+    public ResponseEntity<?> returnBook(@RequestBody ReturnDTO dto){
+        final var response = service.returnBook(dto);
+        return  response ?
+                ResponseEntity.status(HttpStatus.OK).body("Book successfully returned!"):
+                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Book rental cancellation failed.");
     }
 }
