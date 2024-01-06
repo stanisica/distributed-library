@@ -3,14 +3,14 @@ package com.distributedlibrary.city.controller;
 import com.distributedlibrary.city.dto.RegisterDTO;
 import com.distributedlibrary.city.dto.RentalDTO;
 import com.distributedlibrary.city.dto.ReturnDTO;
+import com.distributedlibrary.city.model.BookRental;
 import com.distributedlibrary.city.service.BookRentalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,5 +40,10 @@ public class BookRentalController {
         return  response ?
                 ResponseEntity.status(HttpStatus.OK).body("Book successfully returned!"):
                 ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Book rental cancellation failed.");
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<BookRental>> findAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 }
