@@ -22,4 +22,4 @@ jobs:
         context: .
         file: ./central/Dockerfile
         push: true
-        tags: stanisica/cc-docker-images:$(date +%s)
+        tags: stanisica/cc-docker-images:${{ github.run_id }}
