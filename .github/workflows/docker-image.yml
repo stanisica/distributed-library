@@ -22,7 +22,9 @@ jobs:
         context: ./central
         file: ./central/Dockerfile
         push: true
-        tags: stanisica/cc-central:${{ github.run_id }}
+        tags: |
+          stanisica/cc-central:${{ github.run_id }}
+          stanisica/cc-central:latest
     
     - name: Build and push City Docker image
       uses: docker/build-push-action@v3
@@ -30,6 +32,8 @@ jobs:
         context: ./city
         file: ./city/Dockerfile
         push: true
-        tags: stanisica/cc-city:${{ github.run_id }}
+        tags: |
+          stanisica/cc-city:${{ github.run_id }}
+          stanisica/cc-city:latest
 
 
