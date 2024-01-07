@@ -16,10 +16,20 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-    - name: Build and push Docker image
+    - name: Build and push Central Docker image
       uses: docker/build-push-action@v3
       with:
         context: ./central
         file: ./central/Dockerfile
         push: true
-        tags: stanisica/cc-docker-images:${{ github.run_id }}
+        tags: stanisica/cc-docker-images:central+${{ github.run_id }}
+    
+    - name: Build and push City Docker image
+      uses: docker/build-push-action@v3
+      with:
+        context: ./city
+        file: ./city/Dockerfile
+        push: true
+        tags: stanisica/cc-docker-images:city+${{ github.run_id }}
+
+
