@@ -20,6 +20,6 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: ./central
-        file: ./Dockerfile
+        file: ./central/Dockerfile
         push: true
         tags: stanisica/cc-docker-images:${{ github.run_id }}
