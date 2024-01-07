@@ -19,7 +19,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
-        context: .
-        file: ./central/Dockerfile
+        context: ./central
+        file: ./Dockerfile
         push: true
         tags: stanisica/cc-docker-images:${{ github.run_id }}
