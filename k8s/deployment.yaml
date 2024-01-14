@@ -30,13 +30,13 @@ spec:
               value: root
           ports:
             - containerPort: 3306
-      #     volumeMounts:
-      #       - name: mysql_db
-      #         mountPath: /var/lib/mysql
-      # volumes:
-      #   - name: mysql_db
-      #     persistentVolumeClaim:
-      #       claimName: mysql_db_pvc
+          volumeMounts:
+            - name: mysql-db
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-db
+          persistentVolumeClaim:
+            claimName: mysql-db-pvc
 
 ---
 apiVersion: apps/v1
@@ -69,13 +69,13 @@ spec:
               value: root
           ports:
             - containerPort: 5432
-          # volumeMounts:
-          #   - name: postgres_data_ns
-          #     mountPath: /var/lib/postgresql/data
-      # volumes:
-      #   - name: postgres_data_ns
-      #     persistentVolumeClaim:
-      #       claimName: postgres_db_pvc_ns
+          volumeMounts:
+            - name: postgres-data-ns
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-data-ns
+          persistentVolumeClaim:
+            claimName: postgres-db-pvc-ns
 
 ---
 apiVersion: apps/v1
@@ -108,13 +108,13 @@ spec:
               value: root
           ports:
             - containerPort: 5432
-          # volumeMounts:
-          #   - name: postgres_data_ns
-          #     mountPath: /var/lib/postgresql/data
-      # volumes:
-      #   - name: postgres_data_ns
-      #     persistentVolumeClaim:
-      #       claimName: postgres_db_pvc_ns
+          volumeMounts:
+            - name: postgres-data-bg
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-data-bg
+          persistentVolumeClaim:
+            claimName: postgres-db-pvc-bg
 
 ---
 apiVersion: apps/v1
@@ -147,10 +147,10 @@ spec:
               value: root
           ports:
             - containerPort: 5432
-          # volumeMounts:
-          #   - name: postgres_data_ns
-          #     mountPath: /var/lib/postgresql/data
-      # volumes:
-      #   - name: postgres_data_ns
-      #     persistentVolumeClaim:
-      #       claimName: postgres_db_pvc_ns
+          volumeMounts:
+            - name: postgres-data-nis
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-data-nis
+          persistentVolumeClaim:
+            claimName: postgres-data-pvc-nis
