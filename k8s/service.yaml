@@ -5,16 +5,12 @@ metadata:
 spec:
   selector:
     app: central
-  type: LoadBalancer
+  #type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
-      nodePort: 30003
-  # ports:
-  #   - protocol: TCP
-  #     port: 8080 # kao EXPOSE, ali u okviru clustera
-  #     targetPort: 8080 # port na kojem kontejner radi unutar poda
+      port: 8080 # kao EXPOSE, ali u okviru clustera
+      targetPort: 8080 # port na kojem kontejner radi unutar poda
+      #nodePort: 30003
 
 ---
 apiVersion: v1

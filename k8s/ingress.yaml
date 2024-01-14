@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  labels:
+    name: ingress
+
+spec:
+  rules:
+    - host: library.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /ns
+            backend:
+              service:
+                name: ns
+                port:
+                  number: 8081
+          - pathType: Prefix
+            path: /bg
+            backend:
+              service:
+                name: bg
+                port:
+                  number: 8082
+          - pathType: Prefix
+            path: /nis
+            backend:
+              service:
+                name: nis
+                port:
+                  number: 8083
