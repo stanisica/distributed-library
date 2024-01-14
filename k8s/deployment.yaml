@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: central
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: central
+  template:
+    metadata:
+      labels:
+        app: central
+    spec:
+      containers:
+        - name: central
+          image: stanisica/cc-central:latest
+          ports:
+            - containerPort: 8080
+        - name: mysql-db
+          image: mysql:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: central_db
+            - name: MYSQL_USER
+              value: appuser
+            - name: MYSQL_PASSWORD
+              value: root
+          ports:
+            - containerPort: 3306
+      #     volumeMounts:
+      #       - name: mysql_db
+      #         mountPath: /var/lib/mysql
+      # volumes:
+      #   - name: mysql_db
+      #     persistentVolumeClaim:
+      #       claimName: mysql_db_pvc
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ns
+  template:
+    metadata:
+      labels:
+        app: ns
+    spec:
+      containers:
+        - name: ns
+          image: stanisica/cc-city:latest
+          ports:
+            - containerPort: 8081
+        - name: postgres-db-ns
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: city_db
+            - name: POSTGRES_USER
+              value: user
+            - name: POSTGRES_PASSWORD
+              value: root
+          ports:
+            - containerPort: 5432
+          # volumeMounts:
+          #   - name: postgres_data_ns
+          #     mountPath: /var/lib/postgresql/data
+      # volumes:
+      #   - name: postgres_data_ns
+      #     persistentVolumeClaim:
+      #       claimName: postgres_db_pvc_ns

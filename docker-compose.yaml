@@ -67,6 +67,8 @@ services:
     image: stanisica/cc-central:latest
     container_name: central
     restart: always
+    environment:
+      MYSQL_CONNECTION: mysql_db
     depends_on:
       mysql_db:
         condition: service_healthy
