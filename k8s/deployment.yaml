@@ -76,3 +76,81 @@ spec:
       #   - name: postgres_data_ns
       #     persistentVolumeClaim:
       #       claimName: postgres_db_pvc_ns
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bg
+  template:
+    metadata:
+      labels:
+        app: bg
+    spec:
+      containers:
+        - name: bg
+          image: stanisica/cc-city:latest
+          ports:
+            - containerPort: 8081
+        - name: postgres-db-bg
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: city_db
+            - name: POSTGRES_USER
+              value: user
+            - name: POSTGRES_PASSWORD
+              value: root
+          ports:
+            - containerPort: 5432
+          # volumeMounts:
+          #   - name: postgres_data_ns
+          #     mountPath: /var/lib/postgresql/data
+      # volumes:
+      #   - name: postgres_data_ns
+      #     persistentVolumeClaim:
+      #       claimName: postgres_db_pvc_ns
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nis
+  template:
+    metadata:
+      labels:
+        app: nis
+    spec:
+      containers:
+        - name: nis
+          image: stanisica/cc-city:latest
+          ports:
+            - containerPort: 8081
+        - name: postgres-db-nis
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: city_db
+            - name: POSTGRES_USER
+              value: user
+            - name: POSTGRES_PASSWORD
+              value: root
+          ports:
+            - containerPort: 5432
+          # volumeMounts:
+          #   - name: postgres_data_ns
+          #     mountPath: /var/lib/postgresql/data
+      # volumes:
+      #   - name: postgres_data_ns
+      #     persistentVolumeClaim:
+      #       claimName: postgres_db_pvc_ns
